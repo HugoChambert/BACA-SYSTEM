@@ -8,6 +8,7 @@ import { HelpPanel } from './components/HelpPanel';
 import { AddArmModal } from './components/AddArmModal';
 import { EditArmModal } from './components/EditArmModal';
 import { CreateAlertModal } from './components/CreateAlertModal';
+import { MachineModelInfo } from './components/MachineModelInfo';
 import { mockArms, mockAlerts } from './mockData';
 import { DiagnosticMetrics, RoboticArm, SystemAlert, MachinePart, MachinePartInstance } from './types';
 import { database } from './services/database';
@@ -343,7 +344,7 @@ function App() {
           </div>
 
           <div className="lg:col-span-9">
-            {selectedArm && selectedMetrics && (
+            {selectedArm && selectedMetrics ? (
               <div className="space-y-4 sm:space-y-6">
                 <div className="bg-gradient-to-r from-slate-900 to-slate-700 rounded-lg p-4 sm:p-5 md:p-6 text-white">
                   <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2">{selectedArm.name}</h2>
@@ -355,6 +356,8 @@ function App() {
                 <div className="bg-white rounded-lg border border-slate-200 p-4 sm:p-5 md:p-6">
                   <MetricsPanel metrics={selectedMetrics} />
                 </div>
+
+                <MachineModelInfo model={selectedArm.model} />
 
                 <div className="bg-white rounded-lg border border-slate-200 p-4 sm:p-5 md:p-6">
                   <PartsPanel
@@ -371,6 +374,25 @@ function App() {
                   onAcknowledge={handleAcknowledge}
                   onCreateAlert={() => setIsCreateAlertOpen(true)}
                 />
+              </div>
+            ) : selectedArm ? (
+              <div className="space-y-4 sm:space-y-6">
+                <div className="bg-gradient-to-r from-slate-900 to-slate-700 rounded-lg p-4 sm:p-5 md:p-6 text-white">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2">{selectedArm.name}</h2>
+                  <p className="text-xs sm:text-sm md:text-base text-slate-300">Real-time diagnostic monitoring and analysis</p>
+                </div>
+
+                <ArmDetails arm={selectedArm} />
+
+                <MachineModelInfo model={selectedArm.model} />
+              </div>
+            ) : (
+              <div className="bg-slate-50 rounded-lg p-6 sm:p-8 md:p-12 text-center">
+                <Activity className="w-12 h-12 sm:w-16 sm:h-16 text-slate-400 mx-auto mb-3 sm:mb-4" />
+                <h3 className="text-lg sm:text-xl font-semibold text-slate-700 mb-2">No Machine Selected</h3>
+                <p className="text-sm sm:text-base text-slate-600">
+                  Select a robotic arm from the sidebar to view detailed diagnostics and machine information.
+                </p>
               </div>
             )}
           </div>
