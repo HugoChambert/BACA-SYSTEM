@@ -21,7 +21,7 @@ export function StatusCard({ arm, onClick, onEdit, isSelected }: StatusCardProps
 
   return (
     <div
-      className={`w-full p-4 rounded-lg border-2 transition-all hover:shadow-lg cursor-pointer relative ${
+      className={`w-full p-3 sm:p-4 rounded-lg border-2 transition-all hover:shadow-lg cursor-pointer relative ${
         isSelected
           ? 'border-slate-600 bg-white shadow-md'
           : 'border-slate-200 bg-white hover:border-slate-300'
@@ -33,19 +33,21 @@ export function StatusCard({ arm, onClick, onEdit, isSelected }: StatusCardProps
         className="absolute top-2 right-2 p-1 hover:bg-slate-100 rounded transition-colors"
         title="Edit arm"
       >
-        <MoreVertical className="w-4 h-4 text-slate-600" />
+        <MoreVertical className="w-3 h-3 sm:w-4 sm:h-4 text-slate-600" />
       </button>
-      <div className="flex items-start justify-between pr-6">
-        <div className="flex-1 text-left">
-          <h3 className="font-semibold text-slate-900 text-lg">{arm.name}</h3>
-          <p className="text-sm text-slate-600 mt-1">{arm.model}</p>
-          <p className="text-xs text-slate-500 mt-1">{arm.location}</p>
+      <div className="flex items-start justify-between pr-6 sm:pr-8">
+        <div className="flex-1 text-left min-w-0">
+          <h3 className="font-semibold text-slate-900 text-sm sm:text-base lg:text-lg truncate">
+            {arm.name}
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-600 mt-1 truncate">{arm.model}</p>
+          <p className="text-[10px] sm:text-xs text-slate-500 mt-1 truncate">{arm.location}</p>
         </div>
-        <div className="flex flex-col items-end gap-2">
-          <div className={`${config.color} rounded-full p-2`}>
-            <StatusIcon className="w-5 h-5 text-white" />
+        <div className="flex flex-col items-end gap-1 sm:gap-2 flex-shrink-0">
+          <div className={`${config.color} rounded-full p-1.5 sm:p-2`}>
+            <StatusIcon className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-white" />
           </div>
-          <span className={`text-xs font-medium ${
+          <span className={`text-[10px] sm:text-xs font-medium ${
             arm.status === 'online' ? 'text-green-700' :
             arm.status === 'error' ? 'text-red-700' :
             arm.status === 'maintenance' ? 'text-blue-700' :
