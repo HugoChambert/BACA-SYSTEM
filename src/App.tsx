@@ -329,7 +329,7 @@ function App() {
                   <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-slate-700" />
                 </button>
               </div>
-              <div className="space-y-2 sm:space-y-3 max-h-[300px] sm:max-h-[400px] lg:max-h-[calc(100vh-200px)] overflow-y-auto">
+              <div className="space-y-2 sm:space-y-3 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100 hover:scrollbar-thumb-slate-400" style={{ maxHeight: 'calc(100vh - 12rem)' }}>
                 {arms.map(arm => (
                   <StatusCard
                     key={arm.id}
