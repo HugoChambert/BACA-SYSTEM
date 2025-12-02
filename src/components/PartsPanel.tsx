@@ -30,10 +30,10 @@ export function PartsPanel({ armId, model, operationHours, parts, availableParts
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'critical': return <AlertTriangle className="w-4 h-4" />;
-      case 'warning': return <AlertTriangle className="w-4 h-4" />;
-      case 'caution': return <Clock className="w-4 h-4" />;
-      default: return <CheckCircle className="w-4 h-4" />;
+      case 'critical': return <AlertTriangle className="w-3 h-3 sm:w-4 sm:h-4" />;
+      case 'warning': return <AlertTriangle className="w-3 h-3 sm:w-4 sm:h-4" />;
+      case 'caution': return <Clock className="w-3 h-3 sm:w-4 sm:h-4" />;
+      default: return <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4" />;
     }
   };
 
@@ -69,21 +69,21 @@ export function PartsPanel({ armId, model, operationHours, parts, availableParts
   const suggestedParts = compatibleParts.filter(part => !installedPartIds.has(part.id));
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <div className="flex items-center gap-2 mb-4">
-          <Wrench className="w-5 h-5 text-slate-700" />
-          <h3 className="text-lg font-semibold text-slate-900">Installed Parts</h3>
+        <div className="flex items-center gap-2 mb-3 sm:mb-4">
+          <Wrench className="w-4 h-4 sm:w-5 sm:h-5 text-slate-700" />
+          <h3 className="text-base sm:text-lg font-semibold text-slate-900">Installed Parts</h3>
         </div>
 
         {sortedParts.length === 0 ? (
-          <div className="bg-slate-50 rounded-lg p-6 text-center">
-            <Wrench className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-            <p className="text-slate-600">No parts tracked yet</p>
-            <p className="text-sm text-slate-500 mt-1">Add parts to track their lifespan and maintenance</p>
+          <div className="bg-slate-50 rounded-lg p-4 sm:p-6 text-center">
+            <Wrench className="w-8 h-8 sm:w-12 sm:h-12 text-slate-400 mx-auto mb-2 sm:mb-3" />
+            <p className="text-sm sm:text-base text-slate-600">No parts tracked yet</p>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">Add parts to track their lifespan and maintenance</p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {sortedParts.map(({ instance, details }) => {
               if (!details) return null;
 
@@ -94,36 +94,38 @@ export function PartsPanel({ armId, model, operationHours, parts, availableParts
               return (
                 <div
                   key={instance.id}
-                  className={`border-2 rounded-lg p-4 ${getStatusColor(status)}`}
+                  className={`border-2 rounded-lg p-3 sm:p-4 ${getStatusColor(status)}`}
                 >
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        {getStatusIcon(status)}
-                        <h4 className="font-semibold">{details.name}</h4>
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-0 mb-2">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
+                        <div className="flex-shrink-0">
+                          {getStatusIcon(status)}
+                        </div>
+                        <h4 className="font-semibold text-sm sm:text-base truncate">{details.name}</h4>
                       </div>
-                      <p className="text-sm opacity-80">Part #: {details.part_number}</p>
+                      <p className="text-xs sm:text-sm opacity-80">Part #: {details.part_number}</p>
                     </div>
-                    <div className="text-right">
-                      <p className="text-sm font-medium">
+                    <div className="sm:text-right flex-shrink-0">
+                      <p className="text-xs sm:text-sm font-medium">
                         {getStatusLabel(status, usagePercent)}
                       </p>
                       {status !== 'critical' && (
-                        <p className="text-xs opacity-80 mt-1">
+                        <p className="text-[10px] sm:text-xs opacity-80 mt-1">
                           {remainingHours.toFixed(0)}h remaining
                         </p>
                       )}
                     </div>
                   </div>
 
-                  <div className="mt-3">
-                    <div className="flex items-center justify-between text-xs mb-1">
+                  <div className="mt-2 sm:mt-3">
+                    <div className="flex items-center justify-between text-[10px] sm:text-xs mb-1">
                       <span>Usage: {instance.hours_used.toFixed(1)} / {details.lifespan_hours}h</span>
                       <span>{usagePercent.toFixed(1)}%</span>
                     </div>
-                    <div className="w-full bg-white bg-opacity-50 rounded-full h-2">
+                    <div className="w-full bg-white bg-opacity-50 rounded-full h-1.5 sm:h-2">
                       <div
-                        className="h-2 rounded-full transition-all duration-500"
+                        className="h-1.5 sm:h-2 rounded-full transition-all duration-500"
                         style={{
                           width: `${Math.min(100, usagePercent)}%`,
                           backgroundColor: status === 'critical' ? '#dc2626' :
@@ -135,9 +137,9 @@ export function PartsPanel({ armId, model, operationHours, parts, availableParts
                   </div>
 
                   {status === 'critical' || status === 'warning' ? (
-                    <div className="mt-3 pt-3 border-t border-current border-opacity-20">
-                      <p className="text-sm font-medium">Replacement Cost: ${details.cost?.toFixed(2) || 'N/A'}</p>
-                      <p className="text-xs opacity-80 mt-1">
+                    <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-current border-opacity-20">
+                      <p className="text-xs sm:text-sm font-medium">Replacement Cost: ${details.cost?.toFixed(2) || 'N/A'}</p>
+                      <p className="text-[10px] sm:text-xs opacity-80 mt-1">
                         Installed: {new Date(instance.installed_at).toLocaleDateString()}
                       </p>
                     </div>
@@ -151,27 +153,27 @@ export function PartsPanel({ armId, model, operationHours, parts, availableParts
 
       {suggestedParts.length > 0 && (
         <div>
-          <h3 className="text-lg font-semibold text-slate-900 mb-4">
+          <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-3 sm:mb-4">
             Available Parts for {model}
           </h3>
-          <div className="grid grid-cols-1 gap-3">
+          <div className="grid grid-cols-1 gap-2 sm:gap-3">
             {suggestedParts.slice(0, 5).map(part => (
               <div
                 key={part.id}
-                className="bg-slate-50 border border-slate-200 rounded-lg p-4 hover:border-slate-300 transition-colors"
+                className="bg-slate-50 border border-slate-200 rounded-lg p-3 sm:p-4 hover:border-slate-300 transition-colors"
               >
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h4 className="font-medium text-slate-900">{part.name}</h4>
-                    <p className="text-sm text-slate-600 mt-1">{part.description}</p>
-                    <div className="flex items-center gap-4 mt-2 text-xs text-slate-500">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-medium text-sm sm:text-base text-slate-900">{part.name}</h4>
+                    <p className="text-xs sm:text-sm text-slate-600 mt-1">{part.description}</p>
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-2 text-[10px] sm:text-xs text-slate-500">
                       <span>Part #: {part.part_number}</span>
                       <span>Lifespan: {part.lifespan_hours}h</span>
                     </div>
                   </div>
-                  <div className="text-right ml-4">
-                    <p className="font-semibold text-slate-900">${part.cost?.toFixed(2)}</p>
-                    <p className="text-xs text-slate-500 mt-1 capitalize">{part.category}</p>
+                  <div className="sm:text-right sm:ml-4 flex-shrink-0">
+                    <p className="font-semibold text-sm sm:text-base text-slate-900">${part.cost?.toFixed(2)}</p>
+                    <p className="text-[10px] sm:text-xs text-slate-500 mt-1 capitalize">{part.category}</p>
                   </div>
                 </div>
               </div>

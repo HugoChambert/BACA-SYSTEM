@@ -250,54 +250,74 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-50">
       <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
-        <div className="max-w-[1800px] mx-auto px-6 py-4">
+        <div className="max-w-[1800px] mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="bg-slate-900 rounded-lg p-2">
-                <Activity className="w-6 h-6 text-white" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="bg-slate-900 rounded-lg p-1.5 sm:p-2">
+                <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-slate-900">BACA Diagnostics</h1>
-                <p className="text-sm text-slate-600">Robotic Arm Monitoring System</p>
+                <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900">BACA Diagnostics</h1>
+                <p className="text-xs sm:text-sm text-slate-600 hidden sm:block">Robotic Arm Monitoring System</p>
               </div>
             </div>
-            <div className="flex items-center gap-6">
-              <div className="flex gap-6">
+            <div className="flex items-center gap-3 sm:gap-6">
+              <div className="hidden md:flex gap-4 lg:gap-6">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-slate-900">{stats.total}</div>
-                  <div className="text-xs text-slate-600 uppercase tracking-wide">Total Arms</div>
+                  <div className="text-lg lg:text-2xl font-bold text-slate-900">{stats.total}</div>
+                  <div className="text-[10px] lg:text-xs text-slate-600 uppercase tracking-wide">Total</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">{stats.online}</div>
-                  <div className="text-xs text-slate-600 uppercase tracking-wide">Online</div>
+                  <div className="text-lg lg:text-2xl font-bold text-green-600">{stats.online}</div>
+                  <div className="text-[10px] lg:text-xs text-slate-600 uppercase tracking-wide">Online</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-red-600">{stats.errors}</div>
-                  <div className="text-xs text-slate-600 uppercase tracking-wide">Errors</div>
+                  <div className="text-lg lg:text-2xl font-bold text-red-600">{stats.errors}</div>
+                  <div className="text-[10px] lg:text-xs text-slate-600 uppercase tracking-wide">Errors</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-amber-600">{stats.alerts}</div>
-                  <div className="text-xs text-slate-600 uppercase tracking-wide">Active Alerts</div>
+                  <div className="text-lg lg:text-2xl font-bold text-amber-600">{stats.alerts}</div>
+                  <div className="text-[10px] lg:text-xs text-slate-600 uppercase tracking-wide">Alerts</div>
                 </div>
               </div>
               <button
                 onClick={() => setIsHelpOpen(true)}
-                className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+                className="p-1.5 sm:p-2 hover:bg-slate-100 rounded-lg transition-colors"
                 title="Help"
               >
-                <HelpCircle className="w-6 h-6 text-slate-600" />
+                <HelpCircle className="w-5 h-5 sm:w-6 sm:h-6 text-slate-600" />
               </button>
+            </div>
+          </div>
+
+          {/* Mobile Stats */}
+          <div className="md:hidden mt-3 grid grid-cols-4 gap-2">
+            <div className="text-center">
+              <div className="text-base font-bold text-slate-900">{stats.total}</div>
+              <div className="text-[10px] text-slate-600 uppercase">Total</div>
+            </div>
+            <div className="text-center">
+              <div className="text-base font-bold text-green-600">{stats.online}</div>
+              <div className="text-[10px] text-slate-600 uppercase">Online</div>
+            </div>
+            <div className="text-center">
+              <div className="text-base font-bold text-red-600">{stats.errors}</div>
+              <div className="text-[10px] text-slate-600 uppercase">Errors</div>
+            </div>
+            <div className="text-center">
+              <div className="text-base font-bold text-amber-600">{stats.alerts}</div>
+              <div className="text-[10px] text-slate-600 uppercase">Alerts</div>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-[1800px] mx-auto px-6 py-6">
-        <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-12 lg:col-span-3">
-            <div className="sticky top-24">
-              <div className="flex items-center justify-between mb-3">
-                <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wide">
+      <main className="max-w-[1800px] mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+          <div className="lg:col-span-3">
+            <div className="lg:sticky lg:top-24">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <h2 className="text-xs sm:text-sm font-semibold text-slate-700 uppercase tracking-wide">
                   Robotic Arms
                 </h2>
                 <button
@@ -305,10 +325,10 @@ function App() {
                   className="p-1.5 hover:bg-slate-200 rounded-lg transition-colors"
                   title="Add new arm"
                 >
-                  <Plus className="w-5 h-5 text-slate-700" />
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-slate-700" />
                 </button>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3 max-h-[300px] sm:max-h-[400px] lg:max-h-[calc(100vh-200px)] overflow-y-auto">
                 {arms.map(arm => (
                   <StatusCard
                     key={arm.id}
@@ -322,19 +342,21 @@ function App() {
             </div>
           </div>
 
-          <div className="col-span-12 lg:col-span-9">
+          <div className="lg:col-span-9">
             {selectedArm && selectedMetrics && (
-              <div className="space-y-6">
-                <div className="bg-gradient-to-r from-slate-900 to-slate-700 rounded-lg p-6 text-white">
-                  <h2 className="text-3xl font-bold mb-2">{selectedArm.name}</h2>
-                  <p className="text-slate-300">Real-time diagnostic monitoring and analysis</p>
+              <div className="space-y-4 sm:space-y-6">
+                <div className="bg-gradient-to-r from-slate-900 to-slate-700 rounded-lg p-4 sm:p-5 md:p-6 text-white">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2">{selectedArm.name}</h2>
+                  <p className="text-xs sm:text-sm md:text-base text-slate-300">Real-time diagnostic monitoring and analysis</p>
                 </div>
 
                 <ArmDetails arm={selectedArm} />
 
-                <MetricsPanel metrics={selectedMetrics} />
+                <div className="bg-white rounded-lg border border-slate-200 p-4 sm:p-5 md:p-6">
+                  <MetricsPanel metrics={selectedMetrics} />
+                </div>
 
-                <div className="bg-white rounded-lg border border-slate-200 p-6">
+                <div className="bg-white rounded-lg border border-slate-200 p-4 sm:p-5 md:p-6">
                   <PartsPanel
                     armId={selectedArm.id}
                     model={selectedArm.model}
